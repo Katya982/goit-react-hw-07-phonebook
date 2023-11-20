@@ -2,23 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import Notiflix from 'notiflix';
 import { Label, Input, Button, Form } from './ContactForm.styled'
-import axios from "axios";
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { selectContacts } from '../../redux/selectors';
-
-axios.defaults.baseURL = 'https://6557943bbd4bcef8b612e825.mockapi.io';
-
-export const addContacts = createAsyncThunk(
-  'contacts/addContact',
-  async (contact, thunkAPI) => {
-    try {
-      const response = await axios.post('/contacts', contact);
-      return response.data;
-    } catch (error) {
-     return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+import { addContacts } from '../../redux/operations';
 
 const ContactForm = ({ onSubmit }) => {
   const contacts = useSelector(selectContacts);

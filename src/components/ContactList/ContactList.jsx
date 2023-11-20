@@ -1,36 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ContactItem, ContactRoster, Button, Item } from './ContactList.styled';
-import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { selectError, selectLoading, selectFilteredContacts } from '../../redux/selectors';
 import { BsFillPersonFill } from "react-icons/bs";
-
-axios.defaults.baseURL = 'https://6557943bbd4bcef8b612e825.mockapi.io';
-
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get('/contacts');
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-export const deleteContacts = createAsyncThunk(
-  'contacts/deleteContact',
-  async (contactId, thunkAPI) => {
-    try {
-      const response = await axios.delete(`/contacts/${contactId}`);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+import { fetchContacts, deleteContacts } from '../../redux/operations';
 
 const ContactList = () => {
   const dispatch = useDispatch();
